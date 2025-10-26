@@ -1,0 +1,21 @@
+# Build outputs
+build-firefox/
+dist/
+build/
+coverage/
+
+# Dependencies
+node_modules/
+
+# Public libraries
+public/faker-5.5.3.min.js
+public/jq-3.7.1.min.js
+
+# Test files
+__tests__/
+*.test.js
+
+# Python
+scripts/
+*.py
+

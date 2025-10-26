@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Helper - Auto-Fill Assistant</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <div class="container">
+    <h2>Card Helper</h2>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="content">
+          <div class="bin-selector">
+            <div class="bin-row">
+              <div class="bin-column bin-column-select">
+                <label for="binSelect">BIN PREFIX</label>
+                <select id="binSelect" class="select-box">
+                  <option value="">Loading BINs...</option>
+                </select>
+              </div>
+
+              <div class="bin-column bin-column-input">
+                <label for="customBinInput">CUSTOM BIN</label>
+                <input type="text" id="customBinInput" class="select-box" placeholder="Optional" maxlength="10">
+              </div>
+            </div>
+          </div>
+
+          <button id="fillForm" class="btn btn-primary">
+            Auto-Fill Form
+          </button>
+
+          <button id="autoTryBtn" class="btn btn-accent">
+            Auto Try
+          </button>
+
+          <button id="getCheckoutUrlBtn" class="btn btn-checkout">
+            Go to Checkout
+          </button>
+
+          <div class="divider"></div>
+
+          <div class="quantity-selector">
+            <label for="quantitySelect">QUANTITY</label>
+            <select id="quantitySelect" class="select-box">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="50">50</option>
+              <option value="80">80</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              <option value="500">500</option>
+            </select>
+          </div>
+
+          <button id="generateCards" class="btn btn-secondary">
+            Generate Cards
+          </button>
+
+          <div class="card-output">
+            <textarea id="cardOutput" class="output-textarea" rows="4" placeholder="Generated cards will appear here..." readonly></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden payment method storage -->
+  <input type="hidden" id="paymentMethod" value="card">
+
+  <script src="public/jq-3.7.1.min.js"></script>
+  <script src="public/faker-5.5.3.min.js"></script>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
+

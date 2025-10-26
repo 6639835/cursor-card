@@ -1,0 +1,28 @@
+# Test files
+__tests__/
+*.test.js
+*.spec.js
+coverage/
+
+# Development files
+.eslintrc.json
+.gitattributes
+.gitignore
+TESTING.md
+CHANGELOG.md
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Scripts
+scripts/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

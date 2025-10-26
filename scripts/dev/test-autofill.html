@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor Card Helper - Autofill Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-title::before {
+            content: "💳";
+            margin-right: 12px;
+            font-size: 28px;
+        }
+
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+        }
+
+        .form-row-three {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 24px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .test-info {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .test-info h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .test-info ol {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .field-info {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+            font-family: monospace;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .bank-form-title::before {
+            content: "🏦";
+        }
+
+        @media (max-width: 600px) {
+            .form-row,
+            .form-row-three {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card {
+                padding: 24px;
+            }
+        }
+
+        .output-section {
+            margin-top: 24px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .output-section h3 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .output-values {
+            font-family: monospace;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .output-values div {
+            padding: 4px 0;
+        }
+
+        .output-values strong {
+            color: #667eea;
+            display: inline-block;
+            min-width: 140px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Autofill Test Page</h1>
+            <p>Test the Cursor Card Helper extension's autofill functionality</p>
+        </div>
+
+        <div class="test-info">
+            <h3>📋 How to Test:</h3>
+            <ol>
+                <li>Install and activate the Cursor Card Helper extension</li>
+                <li>Click the extension icon in your browser toolbar</li>
+                <li>Select a BIN prefix (or enter a custom one)</li>
+                <li>Click the "Auto Fill" button in the extension popup</li>
+                <li>Watch the magic happen! ✨</li>
+            </ol>
+        </div>
+
+        <!-- Card Payment Form -->
+        <div class="form-card">
+            <h2 class="form-title">Credit/Debit Card Payment Form</h2>
+
+            <div id="cardSuccessMessage" class="success-message">
+                ✅ Form filled successfully! Check the output below.
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">💳 Card Information</div>
+                
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input 
+                        type="text" 
+                        id="cardNumber" 
+                        name="cardNumber" 
+                        placeholder="1234 5678 9012 3456"
+                        maxlength="19">
+                    <div class="field-info">name="cardNumber"</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cardExpiry">Expiry Date</label>
+                        <input 
+                            type="text" 
+                            id="cardExpiry" 
+                            name="cardExpiry" 
+                            placeholder="MM/YY">
+                        <div class="field-info">name="cardExpiry"</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardCvc">CVC</label>
+                        <input 
+                            type="text" 
+                            id="cardCvc" 
+                            name="cardCvc" 
+                            placeholder="123"
+                            maxlength="4">
+                        <div class="field-info">name="cardCvc"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">👤 Billing Information</div>
+                
+                <div class="form-group">
+                    <label for="billingName">Full Name</label>
+                    <input 
+                        type="text" 
+                        id="billingName" 
+                        name="billingName" 
+                        placeholder="John Doe">
+                    <div class="field-info">name="billingName"</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="billingCountry">Country</label>
+                    <select id="billingCountry" name="billingCountry">
+                        <option value="">Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="AU">Australia</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="JP">Japan</option>
+                        <option value="CN">China</option>
+                    </select>
+                    <div class="field-info">name="billingCountry"</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="billingAdministrativeArea">State/Province</label>
+                        <select id="billingAdministrativeArea" name="billingAdministrativeArea">
+                            <option value="">Select State</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="IL">Illinois</option>
+                            <option value="NY">New York</option>
+                            <option value="TX">Texas</option>
+                            <option value="WA">Washington</option>
+                        </select>
+                        <div class="field-info">name="billingAdministrativeArea"</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="billingLocality">City</label>
+                        <input 
+                            type="text" 
+                            id="billingLocality" 
+                            name="billingLocality" 
+                            placeholder="New York">
+                        <div class="field-info">name="billingLocality"</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="billingAddressLine1">Address Line 1</label>
+                    <input 
+                        type="text" 
+                        id="billingAddressLine1" 
+                        name="billingAddressLine1" 
+                        placeholder="123 Main Street">
+                    <div class="field-info">name="billingAddressLine1"</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="billingAddressLine2">Address Line 2 (Optional)</label>
+                    <input 
+                        type="text" 
+                        id="billingAddressLine2" 
+                        name="billingAddressLine2" 
+                        placeholder="Apt 4B">
+                    <div class="field-info">name="billingAddressLine2"</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="billingPostalCode">Postal Code</label>
+                    <input 
+                        type="text" 
+                        id="billingPostalCode" 
+                        name="billingPostalCode" 
+                        placeholder="10001">
+                    <div class="field-info">name="billingPostalCode"</div>
+                </div>
+            </div>
+
+            <button onclick="displayCardValues()">Submit Payment</button>
+
+            <div class="output-section" id="cardOutput" style="display: none;">
+                <h3>📝 Filled Values:</h3>
+                <div class="output-values" id="cardOutputValues"></div>
+            </div>
+        </div>
+
+        <!-- Bank Account Form -->
+        <div class="form-card">
+            <h2 class="form-title bank-form-title">Bank Account Payment Form</h2>
+
+            <div id="bankSuccessMessage" class="success-message">
+                ✅ Form filled successfully! Check the output below.
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">👤 Account Holder Information</div>
+                
+                <div class="form-group">
+                    <label for="bankBillingName">Account Holder Name</label>
+                    <input 
+                        type="text" 
+                        id="bankBillingName" 
+                        name="billingName" 
+                        placeholder="John Doe">
+                    <div class="field-info">name="billingName"</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bankBillingCountry">Country</label>
+                    <select id="bankBillingCountry" name="billingCountry">
+                        <option value="">Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                    </select>
+                    <div class="field-info">name="billingCountry"</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bankBillingAdministrativeArea">State/Province</label>
+                        <select id="bankBillingAdministrativeArea" name="billingAdministrativeArea">
+                            <option value="">Select State</option>
+                            <option value="CA">California</option>
+                            <option value="NY">New York</option>
+                            <option value="TX">Texas</option>
+                        </select>
+                        <div class="field-info">name="billingAdministrativeArea"</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bankBillingLocality">City</label>
+                        <input 
+                            type="text" 
+                            id="bankBillingLocality" 
+                            name="billingLocality" 
+                            placeholder="San Francisco">
+                        <div class="field-info">name="billingLocality"</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bankBillingAddressLine1">Address Line 1</label>
+                    <input 
+                        type="text" 
+                        id="bankBillingAddressLine1" 
+                        name="billingAddressLine1" 
+                        placeholder="456 Oak Avenue">
+                    <div class="field-info">name="billingAddressLine1"</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bankBillingAddressLine2">Address Line 2 (Optional)</label>
+                    <input 
+                        type="text" 
+                        id="bankBillingAddressLine2" 
+                        name="billingAddressLine2" 
+                        placeholder="Suite 200">
+                    <div class="field-info">name="billingAddressLine2"</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bankBillingPostalCode">Postal Code</label>
+                    <input 
+                        type="text" 
+                        id="bankBillingPostalCode" 
+                        name="billingPostalCode" 
+                        placeholder="94102">
+                    <div class="field-info">name="billingPostalCode"</div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">🏦 Bank Account Details</div>
+                
+                <div class="form-group">
+                    <label for="manualEntry_routingNumber">Routing Number</label>
+                    <input 
+                        type="text" 
+                        id="manualEntry_routingNumber" 
+                        name="manualEntry_routingNumber" 
+                        placeholder="123456789"
+                        maxlength="9">
+                    <div class="field-info">id="manualEntry_routingNumber"</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="manualEntry_accountNumber">Account Number</label>
+                    <input 
+                        type="text" 
+                        id="manualEntry_accountNumber" 
+                        name="manualEntry_accountNumber" 
+                        placeholder="000123456789">
+                    <div class="field-info">id="manualEntry_accountNumber"</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="manualEntry_confirmAccountNumber">Confirm Account Number</label>
+                    <input 
+                        type="text" 
+                        id="manualEntry_confirmAccountNumber" 
+                        name="manualEntry_confirmAccountNumber" 
+                        placeholder="000123456789">
+                    <div class="field-info">id="manualEntry_confirmAccountNumber"</div>
+                </div>
+            </div>
+
+            <button onclick="displayBankValues()">Submit Payment</button>
+
+            <div class="output-section" id="bankOutput" style="display: none;">
+                <h3>📝 Filled Values:</h3>
+                <div class="output-values" id="bankOutputValues"></div>
+            </div>
+        </div>
+
+        <div class="form-card" style="background: #f8f9fa;">
+            <h3 style="color: #667eea; margin-bottom: 16px;">ℹ️ Testing Tips</h3>
+            <ul style="color: #555; line-height: 1.8; margin-left: 20px;">
+                <li>All field names match the extension's expected selectors</li>
+                <li>The form will trigger events (input, change, blur) that the extension listens for</li>
+                <li>Check the browser console (F12) for detailed fill logs</li>
+                <li>Try different BIN prefixes to see different card brands</li>
+                <li>The "Submit Payment" buttons will display filled values without submitting</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Add event listeners to all form fields to track changes
+        document.querySelectorAll('input, select').forEach(field => {
+            field.addEventListener('input', function(e) {
+                console.log(`Field changed: ${e.target.name || e.target.id} = ${e.target.value}`);
+            });
+
+            field.addEventListener('change', function(e) {
+                console.log(`Field updated: ${e.target.name || e.target.id} = ${e.target.value}`);
+                // Show success message if field has value
+                if (e.target.value) {
+                    const form = e.target.closest('.form-card');
+                    if (form) {
+                        const successMsg = form.querySelector('.success-message');
+                        if (successMsg) {
+                            successMsg.style.display = 'block';
+                            setTimeout(() => {
+                                successMsg.style.display = 'none';
+                            }, 3000);
+                        }
+                    }
+                }
+            });
+        });
+
+        function displayCardValues() {
+            const values = {
+                'Card Number': document.getElementById('cardNumber').value,
+                'Expiry Date': document.getElementById('cardExpiry').value,
+                'CVC': document.getElementById('cardCvc').value,
+                'Full Name': document.getElementById('billingName').value,
+                'Country': document.getElementById('billingCountry').value,
+                'State': document.getElementById('billingAdministrativeArea').value,
+                'City': document.getElementById('billingLocality').value,
+                'Address Line 1': document.getElementById('billingAddressLine1').value,
+                'Address Line 2': document.getElementById('billingAddressLine2').value,
+                'Postal Code': document.getElementById('billingPostalCode').value
+            };
+
+            let html = '';
+            for (const [key, value] of Object.entries(values)) {
+                if (value) {
+                    html += `<div><strong>${key}:</strong> ${value}</div>`;
+                }
+            }
+
+            if (html) {
+                document.getElementById('cardOutputValues').innerHTML = html;
+                document.getElementById('cardOutput').style.display = 'block';
+                document.getElementById('cardSuccessMessage').style.display = 'block';
+            } else {
+                alert('Please use the extension to fill the form first!');
+            }
+
+            return false;
+        }
+
+        function displayBankValues() {
+            const values = {
+                'Account Holder': document.getElementById('bankBillingName').value,
+                'Country': document.getElementById('bankBillingCountry').value,
+                'State': document.getElementById('bankBillingAdministrativeArea').value,
+                'City': document.getElementById('bankBillingLocality').value,
+                'Address Line 1': document.getElementById('bankBillingAddressLine1').value,
+                'Address Line 2': document.getElementById('bankBillingAddressLine2').value,
+                'Postal Code': document.getElementById('bankBillingPostalCode').value,
+                'Routing Number': document.getElementById('manualEntry_routingNumber').value,
+                'Account Number': document.getElementById('manualEntry_accountNumber').value,
+                'Confirm Account': document.getElementById('manualEntry_confirmAccountNumber').value
+            };
+
+            let html = '';
+            for (const [key, value] of Object.entries(values)) {
+                if (value) {
+                    html += `<div><strong>${key}:</strong> ${value}</div>`;
+                }
+            }
+
+            if (html) {
+                document.getElementById('bankOutputValues').innerHTML = html;
+                document.getElementById('bankOutput').style.display = 'block';
+                document.getElementById('bankSuccessMessage').style.display = 'block';
+            } else {
+                alert('Please use the extension to fill the form first!');
+            }
+
+            return false;
+        }
+
+        // Log when page is ready
+        console.log('🎯 Autofill Test Page Loaded');
+        console.log('📋 Ready to test Cursor Card Helper extension');
+        console.log('💡 Open the extension popup and click "Auto Fill" to test');
+    </script>
+</body>
+</html>
+

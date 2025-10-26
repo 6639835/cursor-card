@@ -1,0 +1,129 @@
+{
+  "US": {
+    "OR": {
+      "Portland": [
+        {"street": "11831 SW Riverwood Rd", "zip": "97219"},
+        {"street": "12450 NW Barnes Rd", "zip": "97229"},
+        {"street": "8234 SE Division St", "zip": "97206"},
+        {"street": "3456 NE Broadway St", "zip": "97232"},
+        {"street": "7821 SW Capitol Hwy", "zip": "97219"},
+        {"street": "5632 N Interstate Ave", "zip": "97217"},
+        {"street": "9845 SE Hawthorne Blvd", "zip": "97214"},
+        {"street": "2341 NW Lovejoy St", "zip": "97210"},
+        {"street": "6789 SE Powell Blvd", "zip": "97206"},
+        {"street": "4523 NE Sandy Blvd", "zip": "97213"}
+      ]
+    },
+    "CA": {
+      "Los Angeles": [
+        {"street": "1234 Sunset Blvd", "zip": "90028"},
+        {"street": "5678 Hollywood Blvd", "zip": "90028"},
+        {"street": "9012 Wilshire Blvd", "zip": "90210"},
+        {"street": "3456 Venice Blvd", "zip": "90034"},
+        {"street": "7890 Santa Monica Blvd", "zip": "90046"},
+        {"street": "2345 Melrose Ave", "zip": "90046"},
+        {"street": "6789 La Brea Ave", "zip": "90036"},
+        {"street": "4567 Beverly Blvd", "zip": "90004"},
+        {"street": "8901 Pico Blvd", "zip": "90035"},
+        {"street": "1357 Olympic Blvd", "zip": "90015"}
+      ],
+      "San Francisco": [
+        {"street": "123 Market St", "zip": "94102"},
+        {"street": "456 Mission St", "zip": "94105"},
+        {"street": "789 Geary St", "zip": "94109"},
+        {"street": "234 Van Ness Ave", "zip": "94102"},
+        {"street": "567 Lombard St", "zip": "94133"},
+        {"street": "890 Castro St", "zip": "94114"},
+        {"street": "345 Haight St", "zip": "94117"},
+        {"street": "678 Valencia St", "zip": "94110"},
+        {"street": "901 Divisadero St", "zip": "94115"},
+        {"street": "432 Fillmore St", "zip": "94117"}
+      ]
+    },
+    "NY": {
+      "New York": [
+        {"street": "123 Broadway", "zip": "10007"},
+        {"street": "456 5th Ave", "zip": "10018"},
+        {"street": "789 Madison Ave", "zip": "10065"},
+        {"street": "234 Park Ave", "zip": "10017"},
+        {"street": "567 Lexington Ave", "zip": "10022"},
+        {"street": "890 Amsterdam Ave", "zip": "10025"},
+        {"street": "345 Columbus Ave", "zip": "10023"},
+        {"street": "678 West End Ave", "zip": "10025"},
+        {"street": "901 E 42nd St", "zip": "10017"},
+        {"street": "432 W 23rd St", "zip": "10011"}
+      ]
+    },
+    "TX": {
+      "Houston": [
+        {"street": "1234 Main St", "zip": "77002"},
+        {"street": "5678 Westheimer Rd", "zip": "77056"},
+        {"street": "9012 Richmond Ave", "zip": "77042"},
+        {"street": "3456 Kirby Dr", "zip": "77098"},
+        {"street": "7890 Memorial Dr", "zip": "77024"},
+        {"street": "2345 Montrose Blvd", "zip": "77006"},
+        {"street": "6789 Bellaire Blvd", "zip": "77036"},
+        {"street": "4567 Bissonnet St", "zip": "77005"},
+        {"street": "8901 Hillcroft Ave", "zip": "77036"},
+        {"street": "1357 Shepherd Dr", "zip": "77007"}
+      ]
+    },
+    "FL": {
+      "Miami": [
+        {"street": "123 Biscayne Blvd", "zip": "33132"},
+        {"street": "456 Collins Ave", "zip": "33139"},
+        {"street": "789 Ocean Dr", "zip": "33139"},
+        {"street": "234 Flagler St", "zip": "33130"},
+        {"street": "567 Coral Way", "zip": "33145"},
+        {"street": "890 SW 8th St", "zip": "33130"},
+        {"street": "345 Miracle Mile", "zip": "33134"},
+        {"street": "678 Alton Rd", "zip": "33139"},
+        {"street": "901 Washington Ave", "zip": "33139"},
+        {"street": "432 Lincoln Rd", "zip": "33139"}
+      ]
+    },
+    "WA": {
+      "Seattle": [
+        {"street": "123 Pike St", "zip": "98101"},
+        {"street": "456 1st Ave", "zip": "98104"},
+        {"street": "789 Broadway", "zip": "98122"},
+        {"street": "234 University Way NE", "zip": "98105"},
+        {"street": "567 15th Ave E", "zip": "98112"},
+        {"street": "890 Rainier Ave S", "zip": "98144"},
+        {"street": "345 California Ave SW", "zip": "98116"},
+        {"street": "678 Greenwood Ave N", "zip": "98103"},
+        {"street": "901 Aurora Ave N", "zip": "98109"},
+        {"street": "432 Lake City Way NE", "zip": "98125"}
+      ]
+    },
+    "IL": {
+      "Chicago": [
+        {"street": "123 N Michigan Ave", "zip": "60601"},
+        {"street": "456 W Madison St", "zip": "60661"},
+        {"street": "789 S State St", "zip": "60605"},
+        {"street": "234 N Clark St", "zip": "60654"},
+        {"street": "567 W Lake St", "zip": "60661"},
+        {"street": "890 N Milwaukee Ave", "zip": "60642"},
+        {"street": "345 W Diversey Pkwy", "zip": "60614"},
+        {"street": "678 N Halsted St", "zip": "60642"},
+        {"street": "901 W Belmont Ave", "zip": "60657"},
+        {"street": "432 S Wabash Ave", "zip": "60605"}
+      ]
+    },
+    "MA": {
+      "Boston": [
+        {"street": "123 Boylston St", "zip": "02116"},
+        {"street": "456 Newbury St", "zip": "02116"},
+        {"street": "789 Commonwealth Ave", "zip": "02215"},
+        {"street": "234 Beacon St", "zip": "02116"},
+        {"street": "567 Massachusetts Ave", "zip": "02118"},
+        {"street": "890 Tremont St", "zip": "02118"},
+        {"street": "345 Washington St", "zip": "02108"},
+        {"street": "678 Cambridge St", "zip": "02114"},
+        {"street": "901 Huntington Ave", "zip": "02115"},
+        {"street": "432 Atlantic Ave", "zip": "02110"}
+      ]
+    }
+  }
+}
+
