@@ -48,11 +48,11 @@ yarn-error.log*
 *.tmp
 .cache/
 
-# Package manager
-package-lock.json
+# Package manager (keep package-lock.json, ignore alternatives)
 yarn.lock
 pnpm-lock.yaml
 
-# Data files (keep source, ignore generated)
+# Data files (keep source, ignore generated and large data files)
 scripts/selected-debit-cards.json
+binlist-data.csv
 
