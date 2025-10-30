@@ -4,13 +4,7 @@
 
 import { BINDatabase } from '../../src/utils/bin-database.js';
 
-// Mock chrome runtime
-global.chrome = {
-  runtime: {
-    getURL: (path) => `chrome-extension://fake-id/${path}`
-  }
-};
-
+// Note: Chrome runtime mock is provided by tests/setup.js
 // Mock fetch
 global.fetch = jest.fn();
 
@@ -46,7 +40,7 @@ describe('BINDatabase', () => {
       const db = await binDB.load();
 
       expect(db).toEqual(mockData);
-      expect(global.fetch).toHaveBeenCalledWith('chrome-extension://fake-id/public/bin-database.json');
+      expect(global.fetch).toHaveBeenCalledWith('chrome-extension://fake-extension-id/public/bin-database.json');
     });
 
     test('should cache database after first load', async () => {
