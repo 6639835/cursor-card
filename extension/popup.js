@@ -414,6 +414,29 @@ class AutoFillManager {
 
   // ========== Auto Try Feature ==========
 
+  /**
+   * Check validation status by detecting Stripe error messages
+   * @returns {Promise<{isSuccess: boolean, hasError: boolean, errorMessage: string}>}
+   */
+  async checkValidationStatus() {
+    try {
+      const [tab] = await browserAPI.tabs.query({ active: true, currentWindow: true });
+      
+      if (!tab) {
+        return { isSuccess: false, hasError: false, errorMessage: 'No active tab' };
+      }
+
+      const result = await browserAPI.tabs.sendMessage(tab.id, {
+        action: 'checkValidation'
+      });
+
+      return result || { isSuccess: false, hasError: false, errorMessage: '' };
+    } catch (error) {
+      console.error('Failed to check validation status:', error);
+      return { isSuccess: false, hasError: false, errorMessage: error.message };
+    }
+  }
+
   async startAutoTry() {
     const binOptions = [];
     $('#binSelect option').each(function() {
@@ -442,7 +465,8 @@ class AutoFillManager {
     const confirmed = confirm(
       `Will perform ${count} auto-try attempts\n` +
       'Each time with random BIN and auto-fill\n' +
-      `Interval: ${delay/1000} seconds\n\n` +
+      `Interval: ${delay/1000} seconds\n` +
+      'Will stop automatically if validation succeeds\n\n' +
       'Continue?'
     );
 
@@ -450,12 +474,14 @@ class AutoFillManager {
       return;
     }
 
-    console.log(`🔄 Starting auto-try, ${count} attempts`);
+    console.log(`🔄 Starting auto-try, ${count} attempts with ${delay/1000}s validation delay`);
 
     const originalBin = $('#binSelect').val();
     const originalCustomBin = $('#customBinInput').val();
 
     $('#customBinInput').val(''); // Clear custom BIN
+
+    let successfulBin = null;
 
     for (let i = 0; i < count; i++) {
       try {
@@ -466,9 +492,28 @@ class AutoFillManager {
         await this.saveBinSelection(randomBin);
         await this.fillForm();
 
-        if (i < count - 1) {
-          console.log(`⏳ Waiting ${delay/1000} seconds...`);
-          await this.sleep(delay);
+        // Wait for Stripe to validate
+        console.log(`⏳ Waiting ${delay/1000} seconds for validation...`);
+        await this.sleep(delay);
+
+        // Check validation status
+        const validationStatus = await this.checkValidationStatus();
+        console.log('Validation status:', validationStatus);
+
+        if (validationStatus.isSuccess) {
+          console.log(`\n🎉 Success! BIN ${randomBin} passed validation!`);
+          successfulBin = randomBin;
+          alert(
+            `🎉 Success!\n\n` +
+            `BIN ${randomBin} passed validation!\n` +
+            `Attempt ${i + 1}/${count}\n\n` +
+            `This BIN has been kept selected for you.`
+          );
+          break; // Stop trying, we found a working BIN
+        } else if (validationStatus.hasError) {
+          console.log(`❌ Validation failed: ${validationStatus.errorMessage}`);
+        } else {
+          console.log(`⚠️ No clear validation result yet`);
         }
 
       } catch (error) {
@@ -476,13 +521,22 @@ class AutoFillManager {
       }
     }
 
-    // Restore original settings
-    $('#binSelect').val(originalBin);
-    $('#customBinInput').val(originalCustomBin);
-    await this.saveBinSelection(originalBin);
+    // Restore original settings only if we didn't find a successful BIN
+    if (!successfulBin) {
+      $('#binSelect').val(originalBin);
+      $('#customBinInput').val(originalCustomBin);
+      await this.saveBinSelection(originalBin);
 
-    console.log(`\n✅ Auto-try complete, executed ${count} times`);
-    alert(`✅ Auto-try complete!\n\nExecuted ${count} fill operations\nOriginal BIN settings restored`);
+      console.log(`\n⚠️ Auto-try complete, executed ${count} attempts, no success detected`);
+      alert(
+        `⚠️ Auto-try complete\n\n` +
+        `Executed ${count} attempts\n` +
+        `No successful validation detected\n` +
+        `Original BIN settings restored`
+      );
+    } else {
+      console.log(`\n✅ Auto-try complete with success on BIN: ${successfulBin}`);
+    }
   }
 
   sleep(ms) {
