@@ -1,23 +1,87 @@
 /**
  * Person Generator
- * Generates realistic US person information using Faker.js
+ * Generates realistic US person information using real names database
  */
 
+import { browserAPI } from '../utils/browser-polyfill.js';
+
 export class PersonGenerator {
+  static namesDatabase = null;
+  static statesDatabase = null;
+
+  /**
+   * Load the names database from file
+   * @returns {Promise<Object>} The loaded database
+   */
+  static async loadNamesDatabase() {
+    if (this.namesDatabase) {
+      return this.namesDatabase;
+    }
+
+    try {
+      const response = await fetch(browserAPI.runtime.getURL('public/real-names.json'));
+      this.namesDatabase = await response.json();
+      return this.namesDatabase;
+    } catch (error) {
+      console.error('Failed to load names database:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Load the states database from file
+   * @returns {Promise<Object>} The loaded database
+   */
+  static async loadStatesDatabase() {
+    if (this.statesDatabase) {
+      return this.statesDatabase;
+    }
+
+    try {
+      const response = await fetch(browserAPI.runtime.getURL('public/us-states.json'));
+      this.statesDatabase = await response.json();
+      return this.statesDatabase;
+    } catch (error) {
+      console.error('Failed to load states database:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Generate a random full name from database
+   * @returns {Promise<string>} Full name
+   */
+  static async generateFullName() {
+    const db = await this.loadNamesDatabase();
+
+    if (!db || !db.firstNames || !db.lastNames) {
+      return 'John Doe'; // Fallback
+    }
+
+    // Randomly choose male or female first name
+    const gender = Math.random() < 0.5 ? 'male' : 'female';
+    const firstNames = db.firstNames[gender];
+    const lastName = db.lastNames[Math.floor(Math.random() * db.lastNames.length)];
+    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+
+    return `${firstName} ${lastName}`;
+  }
+
   /**
    * Generate complete person information for US
    * @param {Object} faker - Faker.js instance
-   * @returns {Object} Person information
+   * @returns {Promise<Object>} Person information
    */
-  static generate(faker) {
+  static async generate(faker) {
     // Set locale to English
     faker.locale = 'en';
 
     const province = faker.address.stateAbbr();
     const city = faker.address.city();
+    const fullName = await this.generateFullName();
 
     return {
-      fullName: faker.name.findName(),
+      fullName: fullName,
       country: 'US',
       province: province,
       city: city,
@@ -28,26 +92,17 @@ export class PersonGenerator {
   /**
    * Get state abbreviation from full name
    * @param {string} stateName - Full state name
-   * @returns {string} State abbreviation
+   * @returns {Promise<string>} State abbreviation
    */
-  static getStateAbbr(stateName) {
-    const stateMap = {
-      'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR',
-      'California': 'CA', 'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE',
-      'Florida': 'FL', 'Georgia': 'GA', 'Hawaii': 'HI', 'Idaho': 'ID',
-      'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS',
-      'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD',
-      'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS',
-      'Missouri': 'MO', 'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV',
-      'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY',
-      'North Carolina': 'NC', 'North Dakota': 'ND', 'Ohio': 'OH', 'Oklahoma': 'OK',
-      'Oregon': 'OR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
-      'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT',
-      'Vermont': 'VT', 'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV',
-      'Wisconsin': 'WI', 'Wyoming': 'WY'
-    };
+  static async getStateAbbr(stateName) {
+    const db = await this.loadStatesDatabase();
 
-    return stateMap[stateName] || stateName;
+    if (!db || !db.states) {
+      // Fallback to original name if database fails
+      return stateName;
+    }
+
+    return db.states[stateName] || stateName;
   }
 }
 

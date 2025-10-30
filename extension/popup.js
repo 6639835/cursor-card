@@ -5,6 +5,7 @@
  */
 
 import { CardGenerator } from './src/core/card-generator.js';
+import { PersonGenerator } from './src/core/person-generator.js';
 import { addressDatabase } from './src/utils/address-database.js';
 import { StorageManager } from './src/utils/storage.js';
 import { DELAYS, RESTRICTED_URL_PREFIXES } from './src/utils/constants.js';
@@ -40,7 +41,7 @@ class AutoFillManager {
     try {
       const response = await fetch(browserAPI.runtime.getURL('public/bin-database.json'));
       const data = await response.json();
-      
+
       if (!data || !data.bins) {
         console.error('Invalid BIN database format');
         this.loadFallbackBins();
@@ -84,7 +85,7 @@ class AutoFillManager {
     console.warn('Loading fallback BINs...');
     const $select = $('#binSelect');
     $select.empty();
-    
+
     const fallbackBins = [
       { value: '532959', label: '532959 - Mastercard (HK)' },
       { value: '552461', label: '552461 - Mastercard (US)' },
@@ -92,11 +93,11 @@ class AutoFillManager {
       { value: '443047', label: '443047 - Visa (US)' },
       { value: '324000', label: '324000 - American Express (US)' }
     ];
-    
+
     fallbackBins.forEach(bin => {
       $select.append(`<option value="${bin.value}">${bin.label}</option>`);
     });
-    
+
     $select.val(fallbackBins[0].value);
     console.log('✅ Loaded fallback BINs');
   }
@@ -317,14 +318,14 @@ class AutoFillManager {
     }
 
     const selectedBin = $('#binSelect').val();
-    
+
     // Check if BIN is empty or still loading
     if (!selectedBin || selectedBin === '') {
       console.error('No BIN selected. Please wait for BINs to load or enter a custom BIN.');
       alert('⚠️ No BIN selected\n\nPlease wait for BIN options to load, or enter a custom BIN.');
       throw new Error('No BIN selected');
     }
-    
+
     console.log('Using dropdown BIN:', selectedBin);
     return selectedBin;
   }
@@ -561,11 +562,14 @@ class AutoFillManager {
         };
       }
 
+      // Generate full name from database
+      const fullName = await PersonGenerator.generateFullName();
+
       const data = {
         cardNumber: cardInfo.cardNumber,
         expiryDate: cardInfo.expiryDate,
         cvc: cardInfo.cvc,
-        fullName: faker.name.findName(),
+        fullName: fullName,
         country: 'US',
         province: province,
         city: city,

@@ -3,6 +3,7 @@
  * Handles loading and retrieving real US addresses
  */
 
+import { browserAPI } from './browser-polyfill.js';
 import {
   STREET_NAMES,
   STREET_TYPES,
@@ -27,7 +28,7 @@ export class AddressDatabase {
     }
 
     try {
-      const response = await fetch(chrome.runtime.getURL('public/real-addresses.json'));
+      const response = await fetch(browserAPI.runtime.getURL('public/real-addresses.json'));
       this.database = await response.json();
       return this.database;
     } catch (error) {

@@ -6,7 +6,7 @@
 
 import { Sleep } from './src/utils/sleep.js';
 import { FormFiller } from './src/core/form-filler.js';
-import { DELAYS, RETRY_LIMITS } from './src/utils/constants.js';
+import { DELAYS } from './src/utils/constants.js';
 import { browserAPI, executeScript } from './src/utils/browser-polyfill.js';
 
 console.log('Background Service Worker started');

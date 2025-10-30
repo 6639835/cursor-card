@@ -4,13 +4,7 @@
 
 import { AddressDatabase } from '../../src/utils/address-database.js';
 
-// Mock chrome runtime
-global.chrome = {
-  runtime: {
-    getURL: (path) => `chrome-extension://fake-id/${path}`
-  }
-};
-
+// Note: Chrome runtime mock is provided by tests/setup.js
 // Mock fetch
 global.fetch = jest.fn();
 
@@ -42,7 +36,7 @@ describe('AddressDatabase', () => {
       const db = await addressDB.load();
 
       expect(db).toEqual(mockData);
-      expect(global.fetch).toHaveBeenCalledWith('chrome-extension://fake-id/public/real-addresses.json');
+      expect(global.fetch).toHaveBeenCalledWith('chrome-extension://fake-extension-id/public/real-addresses.json');
     });
 
     test('should cache database after first load', async () => {

@@ -3,6 +3,8 @@
  * Handles loading and querying card BIN information
  */
 
+import { browserAPI } from './browser-polyfill.js';
+
 export class BINDatabase {
   constructor() {
     this.database = null;
@@ -18,7 +20,7 @@ export class BINDatabase {
     }
 
     try {
-      const response = await fetch(chrome.runtime.getURL('public/bin-database.json'));
+      const response = await fetch(browserAPI.runtime.getURL('public/bin-database.json'));
       const data = await response.json();
       this.database = data;
       return this.database;

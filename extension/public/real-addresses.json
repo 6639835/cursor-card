@@ -38,6 +38,18 @@
         {"street": "678 Valencia St", "zip": "94110"},
         {"street": "901 Divisadero St", "zip": "94115"},
         {"street": "432 Fillmore St", "zip": "94117"}
+      ],
+      "San Diego": [
+        {"street": "1234 Harbor Dr", "zip": "92101"},
+        {"street": "5678 Broadway", "zip": "92101"},
+        {"street": "9012 El Cajon Blvd", "zip": "92115"},
+        {"street": "3456 University Ave", "zip": "92104"},
+        {"street": "7890 Adams Ave", "zip": "92116"},
+        {"street": "2345 Park Blvd", "zip": "92101"},
+        {"street": "6789 Convoy St", "zip": "92111"},
+        {"street": "4567 Clairemont Dr", "zip": "92117"},
+        {"street": "8901 Garnet Ave", "zip": "92109"},
+        {"street": "1357 Mission Bay Dr", "zip": "92109"}
       ]
     },
     "NY": {
@@ -52,6 +64,18 @@
         {"street": "678 West End Ave", "zip": "10025"},
         {"street": "901 E 42nd St", "zip": "10017"},
         {"street": "432 W 23rd St", "zip": "10011"}
+      ],
+      "Buffalo": [
+        {"street": "123 Main St", "zip": "14203"},
+        {"street": "456 Delaware Ave", "zip": "14202"},
+        {"street": "789 Elmwood Ave", "zip": "14222"},
+        {"street": "234 Hertel Ave", "zip": "14216"},
+        {"street": "567 Niagara St", "zip": "14201"},
+        {"street": "890 Bailey Ave", "zip": "14215"},
+        {"street": "345 Genesee St", "zip": "14203"},
+        {"street": "678 Grant St", "zip": "14213"},
+        {"street": "901 Allen St", "zip": "14201"},
+        {"street": "432 Seneca St", "zip": "14210"}
       ]
     },
     "TX": {
@@ -66,6 +90,30 @@
         {"street": "4567 Bissonnet St", "zip": "77005"},
         {"street": "8901 Hillcroft Ave", "zip": "77036"},
         {"street": "1357 Shepherd Dr", "zip": "77007"}
+      ],
+      "Dallas": [
+        {"street": "1234 Commerce St", "zip": "75202"},
+        {"street": "5678 McKinney Ave", "zip": "75204"},
+        {"street": "9012 Lemmon Ave", "zip": "75209"},
+        {"street": "3456 Knox St", "zip": "75205"},
+        {"street": "7890 Greenville Ave", "zip": "75206"},
+        {"street": "2345 Henderson Ave", "zip": "75206"},
+        {"street": "6789 Lower Greenville Ave", "zip": "75214"},
+        {"street": "4567 Cedar Springs Rd", "zip": "75219"},
+        {"street": "8901 Ross Ave", "zip": "75201"},
+        {"street": "1357 Elm St", "zip": "75202"}
+      ],
+      "Austin": [
+        {"street": "1234 Congress Ave", "zip": "78701"},
+        {"street": "5678 6th St", "zip": "78701"},
+        {"street": "9012 South Congress Ave", "zip": "78704"},
+        {"street": "3456 Lamar Blvd", "zip": "78704"},
+        {"street": "7890 Guadalupe St", "zip": "78705"},
+        {"street": "2345 Burnet Rd", "zip": "78756"},
+        {"street": "6789 Airport Blvd", "zip": "78752"},
+        {"street": "4567 N Lamar Blvd", "zip": "78751"},
+        {"street": "8901 E 7th St", "zip": "78702"},
+        {"street": "1357 Barton Springs Rd", "zip": "78704"}
       ]
     },
     "FL": {
@@ -80,6 +128,30 @@
         {"street": "678 Alton Rd", "zip": "33139"},
         {"street": "901 Washington Ave", "zip": "33139"},
         {"street": "432 Lincoln Rd", "zip": "33139"}
+      ],
+      "Orlando": [
+        {"street": "123 Orange Ave", "zip": "32801"},
+        {"street": "456 Church St", "zip": "32801"},
+        {"street": "789 International Dr", "zip": "32819"},
+        {"street": "234 Colonial Dr", "zip": "32803"},
+        {"street": "567 Kirkman Rd", "zip": "32811"},
+        {"street": "890 Sand Lake Rd", "zip": "32819"},
+        {"street": "345 Vineland Rd", "zip": "32821"},
+        {"street": "678 Turkey Lake Rd", "zip": "32819"},
+        {"street": "901 Conroy Rd", "zip": "32839"},
+        {"street": "432 Semoran Blvd", "zip": "32807"}
+      ],
+      "Tampa": [
+        {"street": "123 Kennedy Blvd", "zip": "33602"},
+        {"street": "456 Dale Mabry Hwy", "zip": "33609"},
+        {"street": "789 Florida Ave", "zip": "33602"},
+        {"street": "234 Bayshore Blvd", "zip": "33606"},
+        {"street": "567 Armenia Ave", "zip": "33609"},
+        {"street": "890 Hillsborough Ave", "zip": "33603"},
+        {"street": "345 Bruce B Downs Blvd", "zip": "33612"},
+        {"street": "678 Fowler Ave", "zip": "33612"},
+        {"street": "901 Fletcher Ave", "zip": "33612"},
+        {"street": "432 Waters Ave", "zip": "33604"}
       ]
     },
     "WA": {
@@ -122,6 +194,186 @@
         {"street": "678 Cambridge St", "zip": "02114"},
         {"street": "901 Huntington Ave", "zip": "02115"},
         {"street": "432 Atlantic Ave", "zip": "02110"}
+      ]
+    },
+    "AZ": {
+      "Phoenix": [
+        {"street": "123 Central Ave", "zip": "85004"},
+        {"street": "456 Camelback Rd", "zip": "85012"},
+        {"street": "789 McDowell Rd", "zip": "85006"},
+        {"street": "234 Thomas Rd", "zip": "85012"},
+        {"street": "567 Indian School Rd", "zip": "85012"},
+        {"street": "890 Bell Rd", "zip": "85022"},
+        {"street": "345 Glendale Ave", "zip": "85021"},
+        {"street": "678 19th Ave", "zip": "85009"},
+        {"street": "901 7th St", "zip": "85006"},
+        {"street": "432 Grand Ave", "zip": "85007"}
+      ],
+      "Tucson": [
+        {"street": "123 Broadway Blvd", "zip": "85701"},
+        {"street": "456 Speedway Blvd", "zip": "85719"},
+        {"street": "789 Grant Rd", "zip": "85716"},
+        {"street": "234 Oracle Rd", "zip": "85705"},
+        {"street": "567 Stone Ave", "zip": "85701"},
+        {"street": "890 22nd St", "zip": "85713"},
+        {"street": "345 Campbell Ave", "zip": "85719"},
+        {"street": "678 Wilmot Rd", "zip": "85711"},
+        {"street": "901 Ina Rd", "zip": "85704"},
+        {"street": "432 Kolb Rd", "zip": "85710"}
+      ]
+    },
+    "CO": {
+      "Denver": [
+        {"street": "123 16th St", "zip": "80202"},
+        {"street": "456 Colfax Ave", "zip": "80203"},
+        {"street": "789 Broadway", "zip": "80203"},
+        {"street": "234 Speer Blvd", "zip": "80204"},
+        {"street": "567 Federal Blvd", "zip": "80204"},
+        {"street": "890 Colorado Blvd", "zip": "80206"},
+        {"street": "345 Alameda Ave", "zip": "80223"},
+        {"street": "678 Santa Fe Dr", "zip": "80204"},
+        {"street": "901 Evans Ave", "zip": "80210"},
+        {"street": "432 Hampden Ave", "zip": "80222"}
+      ]
+    },
+    "GA": {
+      "Atlanta": [
+        {"street": "123 Peachtree St NE", "zip": "30303"},
+        {"street": "456 Ponce De Leon Ave NE", "zip": "30308"},
+        {"street": "789 Piedmont Ave NE", "zip": "30308"},
+        {"street": "234 Marietta St NW", "zip": "30313"},
+        {"street": "567 West Peachtree St NW", "zip": "30308"},
+        {"street": "890 North Ave NE", "zip": "30308"},
+        {"street": "345 Edgewood Ave SE", "zip": "30312"},
+        {"street": "678 Memorial Dr SE", "zip": "30312"},
+        {"street": "901 Moreland Ave SE", "zip": "30316"},
+        {"street": "432 MLK Jr Dr SW", "zip": "30314"}
+      ]
+    },
+    "PA": {
+      "Philadelphia": [
+        {"street": "123 Market St", "zip": "19106"},
+        {"street": "456 Walnut St", "zip": "19106"},
+        {"street": "789 Chestnut St", "zip": "19107"},
+        {"street": "234 Broad St", "zip": "19102"},
+        {"street": "567 Arch St", "zip": "19106"},
+        {"street": "890 South St", "zip": "19147"},
+        {"street": "345 Spring Garden St", "zip": "19123"},
+        {"street": "678 Germantown Ave", "zip": "19144"},
+        {"street": "901 Baltimore Ave", "zip": "19143"},
+        {"street": "432 Ridge Ave", "zip": "19123"}
+      ]
+    },
+    "OH": {
+      "Columbus": [
+        {"street": "123 High St", "zip": "43215"},
+        {"street": "456 Broad St", "zip": "43215"},
+        {"street": "789 Long St", "zip": "43215"},
+        {"street": "234 Main St", "zip": "43215"},
+        {"street": "567 Neil Ave", "zip": "43201"},
+        {"street": "890 Cleveland Ave", "zip": "43201"},
+        {"street": "345 Morse Rd", "zip": "43229"},
+        {"street": "678 Livingston Ave", "zip": "43205"},
+        {"street": "901 Parsons Ave", "zip": "43207"},
+        {"street": "432 Hamilton Rd", "zip": "43213"}
+      ]
+    },
+    "MI": {
+      "Detroit": [
+        {"street": "123 Woodward Ave", "zip": "48226"},
+        {"street": "456 Jefferson Ave", "zip": "48226"},
+        {"street": "789 Grand River Ave", "zip": "48226"},
+        {"street": "234 Michigan Ave", "zip": "48226"},
+        {"street": "567 Fort St", "zip": "48226"},
+        {"street": "890 Gratiot Ave", "zip": "48207"},
+        {"street": "345 Livernois Ave", "zip": "48210"},
+        {"street": "678 7 Mile Rd", "zip": "48235"},
+        {"street": "901 8 Mile Rd", "zip": "48237"},
+        {"street": "432 Mack Ave", "zip": "48214"}
+      ]
+    },
+    "NV": {
+      "Las Vegas": [
+        {"street": "123 Las Vegas Blvd S", "zip": "89101"},
+        {"street": "456 Fremont St", "zip": "89101"},
+        {"street": "789 Paradise Rd", "zip": "89109"},
+        {"street": "234 Flamingo Rd", "zip": "89109"},
+        {"street": "567 Tropicana Ave", "zip": "89103"},
+        {"street": "890 Spring Mountain Rd", "zip": "89102"},
+        {"street": "345 Charleston Blvd", "zip": "89104"},
+        {"street": "678 Sahara Ave", "zip": "89104"},
+        {"street": "901 Eastern Ave", "zip": "89101"},
+        {"street": "432 Rainbow Blvd", "zip": "89107"}
+      ]
+    },
+    "NC": {
+      "Charlotte": [
+        {"street": "123 Tryon St", "zip": "28202"},
+        {"street": "456 Trade St", "zip": "28202"},
+        {"street": "789 South Blvd", "zip": "28203"},
+        {"street": "234 Independence Blvd", "zip": "28204"},
+        {"street": "567 Morehead St", "zip": "28204"},
+        {"street": "890 Central Ave", "zip": "28205"},
+        {"street": "345 North Tryon St", "zip": "28206"},
+        {"street": "678 Providence Rd", "zip": "28207"},
+        {"street": "901 Sharon Rd", "zip": "28211"},
+        {"street": "432 Park Rd", "zip": "28209"}
+      ]
+    },
+    "VA": {
+      "Virginia Beach": [
+        {"street": "123 Atlantic Ave", "zip": "23451"},
+        {"street": "456 Pacific Ave", "zip": "23451"},
+        {"street": "789 Laskin Rd", "zip": "23451"},
+        {"street": "234 Virginia Beach Blvd", "zip": "23452"},
+        {"street": "567 Independence Blvd", "zip": "23455"},
+        {"street": "890 Holland Rd", "zip": "23464"},
+        {"street": "345 Dam Neck Rd", "zip": "23453"},
+        {"street": "678 Shore Dr", "zip": "23451"},
+        {"street": "901 General Booth Blvd", "zip": "23454"},
+        {"street": "432 Princess Anne Rd", "zip": "23456"}
+      ]
+    },
+    "MN": {
+      "Minneapolis": [
+        {"street": "123 Hennepin Ave", "zip": "55403"},
+        {"street": "456 Nicollet Ave", "zip": "55403"},
+        {"street": "789 Lake St", "zip": "55408"},
+        {"street": "234 Lyndale Ave S", "zip": "55408"},
+        {"street": "567 University Ave SE", "zip": "55414"},
+        {"street": "890 Broadway St NE", "zip": "55413"},
+        {"street": "345 Franklin Ave", "zip": "55404"},
+        {"street": "678 Washington Ave N", "zip": "55401"},
+        {"street": "901 Cedar Ave S", "zip": "55454"},
+        {"street": "432 Chicago Ave", "zip": "55404"}
+      ]
+    },
+    "TN": {
+      "Nashville": [
+        {"street": "123 Broadway", "zip": "37203"},
+        {"street": "456 West End Ave", "zip": "37203"},
+        {"street": "789 21st Ave S", "zip": "37212"},
+        {"street": "234 Charlotte Ave", "zip": "37201"},
+        {"street": "567 Music Valley Dr", "zip": "37214"},
+        {"street": "890 Murfreesboro Pike", "zip": "37217"},
+        {"street": "345 8th Ave S", "zip": "37203"},
+        {"street": "678 Hillsboro Pike", "zip": "37215"},
+        {"street": "901 Nolensville Pike", "zip": "37211"},
+        {"street": "432 Gallatin Pike", "zip": "37206"}
+      ]
+    },
+    "WI": {
+      "Milwaukee": [
+        {"street": "123 Wisconsin Ave", "zip": "53202"},
+        {"street": "456 Water St", "zip": "53202"},
+        {"street": "789 North Ave", "zip": "53202"},
+        {"street": "234 Brady St", "zip": "53202"},
+        {"street": "567 Farwell Ave", "zip": "53211"},
+        {"street": "890 Oakland Ave", "zip": "53211"},
+        {"street": "345 Capitol Dr", "zip": "53206"},
+        {"street": "678 27th St", "zip": "53208"},
+        {"street": "901 Bluemound Rd", "zip": "53213"},
+        {"street": "432 Forest Home Ave", "zip": "53215"}
       ]
     }
   }
