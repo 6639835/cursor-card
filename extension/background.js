@@ -26,6 +26,10 @@ browserAPI.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({ success: true, message: 'Card fill process started' });
     break;
 
+  case 'checkValidation':
+    handleCheckValidation().then(sendResponse);
+    return true; // Keep channel open for async response
+
   default:
     sendResponse({ success: false, message: 'Unknown action' });
   }
@@ -33,6 +37,35 @@ browserAPI.runtime.onMessage.addListener((request, sender, sendResponse) => {
   // Keep message channel open
   return true;
 });
+
+/**
+ * Handle validation status check
+ * @returns {Promise<{isSuccess: boolean, hasError: boolean, errorMessage: string}>}
+ */
+async function handleCheckValidation() {
+  try {
+    const [tab] = await browserAPI.tabs.query({ active: true, currentWindow: true });
+
+    if (!tab) {
+      console.error('❌ Unable to get current tab');
+      return { isSuccess: false, hasError: false, errorMessage: 'No active tab' };
+    }
+
+    console.log('🔍 Checking validation status on:', tab.url);
+
+    // Inject validation check script
+    const result = await executeScript(tab.id, {
+      func: checkStripeValidationStatus
+    });
+
+    console.log('✅ Validation check result:', result);
+    return result && result[0] ? result[0] : { isSuccess: false, hasError: false, errorMessage: 'No result' };
+
+  } catch (error) {
+    console.error('Validation check failed:', error);
+    return { isSuccess: false, hasError: false, errorMessage: error.message };
+  }
+}
 
 /**
  * Handle card form filling
@@ -407,5 +440,87 @@ function executeCardFillProcess(data) {
     console.log('🎯 Starting sequential card fill...');
     await delayFillField(0);
   }
+}
+
+/**
+ * Check Stripe validation status
+ * Injected into page context
+ * @returns {{isSuccess: boolean, hasError: boolean, errorMessage: string}}
+ */
+function checkStripeValidationStatus() {
+  console.log('🔍 Checking Stripe validation status...');
+
+  // Check for error messages
+  const errorSelectors = [
+    '.Error-message',
+    '[role="alert"]',
+    '.FieldError',
+    '.CardField-error',
+    'span[aria-live="polite"]',
+    '.p-FieldError',
+    '.p-FormFieldError'
+  ];
+
+  let errorMessage = '';
+  let hasError = false;
+
+  for (const selector of errorSelectors) {
+    const errorElements = document.querySelectorAll(selector);
+    for (const element of errorElements) {
+      const text = element.textContent.trim();
+      if (text && text.length > 0 && !text.includes('Enter') && !text.includes('Complete')) {
+        hasError = true;
+        errorMessage = text;
+        console.log(`❌ Found error: ${text}`);
+        break;
+      }
+    }
+    if (hasError) break;
+  }
+
+  // Check for specific card field errors
+  const cardNumberInput = document.querySelector('input[name="cardNumber"]');
+  const expiryInput = document.querySelector('input[name="cardExpiry"]');
+  const cvcInput = document.querySelector('input[name="cardCvc"]');
+
+  if (cardNumberInput && cardNumberInput.getAttribute('aria-invalid') === 'true') {
+    hasError = true;
+    errorMessage = 'Card number is invalid';
+    console.log('❌ Card number field marked as invalid');
+  }
+
+  if (expiryInput && expiryInput.getAttribute('aria-invalid') === 'true') {
+    hasError = true;
+    errorMessage = errorMessage || 'Expiry date is invalid';
+    console.log('❌ Expiry field marked as invalid');
+  }
+
+  if (cvcInput && cvcInput.getAttribute('aria-invalid') === 'true') {
+    hasError = true;
+    errorMessage = errorMessage || 'CVC is invalid';
+    console.log('❌ CVC field marked as invalid');
+  }
+
+  // Check if all fields are valid (no aria-invalid)
+  const allInputsValid = cardNumberInput && expiryInput && cvcInput &&
+    cardNumberInput.getAttribute('aria-invalid') === 'false' &&
+    expiryInput.getAttribute('aria-invalid') === 'false' &&
+    cvcInput.getAttribute('aria-invalid') === 'false';
+
+  // Check if submit button is enabled (indicates form is valid)
+  const submitButton = document.querySelector('button[data-testid="hosted-payment-submit-button"]');
+  const isSubmitEnabled = submitButton && !submitButton.disabled;
+
+  // Success if: all fields valid + no errors + submit button enabled
+  const isSuccess = allInputsValid && !hasError && isSubmitEnabled;
+
+  const result = {
+    isSuccess,
+    hasError,
+    errorMessage: errorMessage || (hasError ? 'Unknown validation error' : '')
+  };
+
+  console.log('✅ Validation check complete:', result);
+  return result;
 }
 

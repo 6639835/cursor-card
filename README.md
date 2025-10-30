@@ -175,12 +175,14 @@ Generate multiple card numbers for testing:
 5. Copy cards in format: `CARD|MM/YY|CVV`
 
 #### 3. Auto Try
-Automatically try multiple BIN prefixes:
+Automatically try multiple BIN prefixes with smart validation detection:
 1. Click "Auto Try"
 2. Enter number of attempts
 3. System cycles through random BINs
 4. Each attempt fills the form
-5. 3-second delay between attempts
+5. 8-second delay between attempts (for Stripe validation)
+6. **Automatically stops when a valid card is detected**
+7. Keeps the successful BIN selected for you
 
 #### 4. Go to Checkout
 For Cursor.com users:
