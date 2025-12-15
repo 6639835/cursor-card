@@ -22,13 +22,22 @@ export class CardGenerator {
    * @returns {number} Hash value
    */
   static hashBankName(bankName) {
-    let hash = 0;
+    // Input validation
+    if (!bankName || typeof bankName !== 'string') {
+      return 0;
+    }
+
+    let hash = 5381; // djb2 initial value
+
     for (let i = 0; i < bankName.length; i++) {
       const char = bankName.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer
+      // djb2 hash: hash * 33 + char
+      hash = ((hash << 5) + hash) + char;
+      hash |= 0; // Convert to 32-bit signed integer
     }
-    return Math.abs(hash) % 100;
+
+    // Ensure positive result in range [0, 99]
+    return (hash >>> 0) % 100; // Use unsigned right shift for positive result
   }
 
   /**
@@ -191,9 +200,10 @@ export class CardGenerator {
   /**
    * Generate complete card information
    * @param {string} binPrefix - BIN prefix to use
+   * @param {number} maxAttempts - Maximum generation attempts (default: 10)
    * @returns {Promise<Object>} Card information object
    */
-  static async generateCardInfo(binPrefix) {
+  static async generateCardInfo(binPrefix, maxAttempts = 10) {
     if (!binPrefix || binPrefix.length === 0) {
       throw new Error('BIN prefix required');
     }
@@ -212,40 +222,62 @@ export class CardGenerator {
 
     const accountLength = remainingLength - 1; // Reserve 1 for check digit
 
-    // Generate card number without check digit
-    let partialNumber = cleanBin;
+    // Try up to maxAttempts times (iterative, not recursive)
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        // Generate card number without check digit
+        let partialNumber = cleanBin;
 
-    if (accountLength > 0) {
-      const accountSegment = this.generateAccountSegment(accountLength, cleanBin, bankName);
-      partialNumber += accountSegment;
+        if (accountLength > 0) {
+          const accountSegment = this.generateAccountSegment(accountLength, cleanBin, bankName);
+          partialNumber += accountSegment;
+        }
+
+        // Calculate and append check digit
+        const checkDigit = LuhnValidator.calculateCheckDigit(partialNumber);
+        const fullCardNumber = partialNumber + checkDigit;
+
+        // Validate
+        if (!LuhnValidator.validate(fullCardNumber)) {
+          console.warn(`Attempt ${attempt}: Luhn validation failed for ${fullCardNumber}`);
+          console.warn(`  Partial: ${partialNumber}, Check Digit: ${checkDigit}`);
+
+          if (attempt === maxAttempts) {
+            throw new Error(
+              `Failed to generate valid card after ${maxAttempts} attempts. ` +
+              `BIN: ${cleanBin}, Length: ${cardLength}`
+            );
+          }
+          continue; // Try again
+        }
+
+        // Generate expiry date
+        const { expMonth, expYear } = this.generateExpiryDate();
+        const expiryDate = `${expMonth}/${expYear}`;
+
+        // Generate CVV
+        const cvv = this.generateCVV(fullCardNumber, expiryDate, brandInfo.cvvLength);
+
+        return {
+          cardNumber: this.formatCardNumber(fullCardNumber, isAmex),
+          expiryDate: expiryDate,
+          cvc: cvv,
+          cardBrand: brandInfo.name,
+          bank: bankName,
+          country: brandInfo.country,
+          type: brandInfo.type
+        };
+
+      } catch (error) {
+        if (attempt === maxAttempts) {
+          throw error;
+        }
+        console.warn(`Attempt ${attempt} failed:`, error.message);
+      }
     }
 
-    // Calculate and append check digit
-    const checkDigit = LuhnValidator.calculateCheckDigit(partialNumber);
-    const fullCardNumber = partialNumber + checkDigit;
-
-    // Validate
-    if (!LuhnValidator.validate(fullCardNumber)) {
-      console.warn('Luhn validation failed, regenerating...');
-      return await this.generateCardInfo(binPrefix);
-    }
-
-    // Generate expiry date
-    const { expMonth, expYear } = this.generateExpiryDate();
-    const expiryDate = `${expMonth}/${expYear}`;
-
-    // Generate CVV
-    const cvv = this.generateCVV(fullCardNumber, expiryDate, brandInfo.cvvLength);
-
-    return {
-      cardNumber: this.formatCardNumber(fullCardNumber, isAmex),
-      expiryDate: expiryDate,
-      cvc: cvv,
-      cardBrand: brandInfo.name,
-      bank: bankName,
-      country: brandInfo.country,
-      type: brandInfo.type
-    };
+    // Should never reach here, but just in case
+    throw new Error(`Card generation failed after ${maxAttempts} attempts`);
   }
 
   /**

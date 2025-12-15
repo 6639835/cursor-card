@@ -28,11 +28,10 @@ if (fs.existsSync(envPath)) {
   });
 } else {
   console.log('⚠️  Warning: .env file not found\n');
-  console.log('Create one with:');
-  console.log('  cat > .env << \'EOF\'');
-  console.log('  export WEB_EXT_API_KEY="your-jwt-issuer"');
-  console.log('  export WEB_EXT_API_SECRET="your-jwt-secret"');
-  console.log('  EOF\n');
+  console.log('Please create .env file from template:');
+  console.log('  cp .env.example .env');
+  console.log('\nThen edit .env and add your Mozilla API credentials from:');
+  console.log('  https://addons.mozilla.org/developers/addon/api/key/\n');
 }
 
 // Check if credentials are set
@@ -41,9 +40,11 @@ const apiSecret = process.env.WEB_EXT_API_SECRET;
 
 if (!apiKey || !apiSecret) {
   console.error('❌ API credentials not set!\n');
-  console.error('Please set environment variables:');
-  console.error('  export WEB_EXT_API_KEY="your-jwt-issuer"');
-  console.error('  export WEB_EXT_API_SECRET="your-jwt-secret"\n');
+  console.error('Please create .env file with your Mozilla API credentials:');
+  console.error('  1. Copy template: cp .env.example .env');
+  console.error('  2. Get credentials from: https://addons.mozilla.org/developers/addon/api/key/');
+  console.error('  3. Edit .env and fill in WEB_EXT_API_KEY and WEB_EXT_API_SECRET\n');
+  console.error('SECURITY WARNING: Never commit .env file to git!\n');
   process.exit(1);
 }
 
